@@ -1,0 +1,210 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>stock.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\address_book.png" />
+    <None Remove="Resources\address_book2.png" />
+    <None Remove="Resources\address_book3.png" />
+    <None Remove="Resources\ai.png" />
+    <None Remove="Resources\back_arrow.png" />
+    <None Remove="Resources\bag.png" />
+    <None Remove="Resources\bansign.png" />
+    <None Remove="Resources\beer.png" />
+    <None Remove="Resources\belt.png" />
+    <None Remove="Resources\bizcard.png" />
+    <None Remove="Resources\blue_folder.png" />
+    <None Remove="Resources\book.png" />
+    <None Remove="Resources\bookmark_file.png" />
+    <None Remove="Resources\box_full.png" />
+    <None Remove="Resources\box_in.png" />
+    <None Remove="Resources\box_out.png" />
+    <None Remove="Resources\bubble.png" />
+    <None Remove="Resources\bubbles.png" />
+    <None Remove="Resources\bulb_light.png" />
+    <None Remove="Resources\calendar.png" />
+    <None Remove="Resources\calendar2.png" />
+    <None Remove="Resources\calendar3.png" />
+    <None Remove="Resources\camera.png" />
+    <None Remove="Resources\camera0.png" />
+    <None Remove="Resources\camera2.png" />
+    <None Remove="Resources\cat.png" />
+    <None Remove="Resources\cat2.png" />
+    <None Remove="Resources\chat.png" />
+    <None Remove="Resources\chat2.png" />
+    <None Remove="Resources\chat3.png" />
+    <None Remove="Resources\clock.png" />
+    <None Remove="Resources\clock2.png" />
+    <None Remove="Resources\cloud.png" />
+    <None Remove="Resources\cloud_down.png" />
+    <None Remove="Resources\cloud_sync.png" />
+    <None Remove="Resources\code_file.png" />
+    <None Remove="Resources\cog.png" />
+    <None Remove="Resources\cogs.png" />
+    <None Remove="Resources\compas.png" />
+    <None Remove="Resources\component.png" />
+    <None Remove="Resources\computer.png" />
+    <None Remove="Resources\cone.png" />
+    <None Remove="Resources\database.png" />
+    <None Remove="Resources\database2.png" />
+    <None Remove="Resources\delete.png" />
+    <None Remove="Resources\disc.png" />
+    <None Remove="Resources\disc3.png" />
+    <None Remove="Resources\doc_folder.png" />
+    <None Remove="Resources\drive.png" />
+    <None Remove="Resources\drive2.png" />
+    <None Remove="Resources\earch.png" />
+    <None Remove="Resources\empty.png" />
+    <None Remove="Resources\enveloppe.png" />
+    <None Remove="Resources\enveloppe2.png" />
+    <None Remove="Resources\enveloppe3.png" />
+    <None Remove="Resources\enveloppe4.png" />
+    <None Remove="Resources\error_shield.png" />
+    <None Remove="Resources\error_sign.png" />
+    <None Remove="Resources\excel.png" />
+    <None Remove="Resources\excel2.png" />
+    <None Remove="Resources\exe_file.png" />
+    <None Remove="Resources\facebook.png" />
+    <None Remove="Resources\factory.png" />
+    <None Remove="Resources\filezip.png" />
+    <None Remove="Resources\film_movie.png" />
+    <None Remove="Resources\filter.png" />
+    <None Remove="Resources\flask.png" />
+    <None Remove="Resources\floppy_save.png" />
+    <None Remove="Resources\folder.png" />
+    <None Remove="Resources\gamepad.png" />
+    <None Remove="Resources\gear.png" />
+    <None Remove="Resources\gift.png" />
+    <None Remove="Resources\google+.png" />
+    <None Remove="Resources\green_folder.png" />
+    <None Remove="Resources\green_movie.png" />
+    <None Remove="Resources\group_profile.png" />
+    <None Remove="Resources\headphone.png" />
+    <None Remove="Resources\heart.png" />
+    <None Remove="Resources\house.png" />
+    <None Remove="Resources\house_folder.png" />
+    <None Remove="Resources\image.png" />
+    <None Remove="Resources\image_file.png" />
+    <None Remove="Resources\image_pci.png" />
+    <None Remove="Resources\indesign.png" />
+    <None Remove="Resources\institution.png" />
+    <None Remove="Resources\land_marker.png" />
+    <None Remove="Resources\layout_window.png" />
+    <None Remove="Resources\life_buoy.png" />
+    <None Remove="Resources\like.png" />
+    <None Remove="Resources\link_file.png" />
+    <None Remove="Resources\lock.png" />
+    <None Remove="Resources\lock2.png" />
+    <None Remove="Resources\lp.png" />
+    <None Remove="Resources\map.png" />
+    <None Remove="Resources\map2.png" />
+    <None Remove="Resources\map_marker.png" />
+    <None Remove="Resources\marker.png" />
+    <None Remove="Resources\microphone.png" />
+    <None Remove="Resources\money.png" />
+    <None Remove="Resources\monitor.png" />
+    <None Remove="Resources\music_folder.png" />
+    <None Remove="Resources\notepad.png" />
+    <None Remove="Resources\notes.png" />
+    <None Remove="Resources\paperclip.png" />
+    <None Remove="Resources\paperclip2.png" />
+    <None Remove="Resources\pdf.png" />
+    <None Remove="Resources\pencil.png" />
+    <None Remove="Resources\photoshop.png" />
+    <None Remove="Resources\pic_folder.png" />
+    <None Remove="Resources\pin.png" />
+    <None Remove="Resources\powerpoint.png" />
+    <None Remove="Resources\premiere.png" />
+    <None Remove="Resources\profile.png" />
+    <None Remove="Resources\profile3.png" />
+    <None Remove="Resources\red_movie.png" />
+    <None Remove="Resources\rss.png" />
+    <None Remove="Resources\schedule.png" />
+    <None Remove="Resources\screwdriver_wrench.png" />
+    <None Remove="Resources\search%27.png" />
+    <None Remove="Resources\sensor.png" />
+    <None Remove="Resources\shield.png" />
+    <None Remove="Resources\sign_add.png" />
+    <None Remove="Resources\sign_check.png" />
+    <None Remove="Resources\sign_info.png" />
+    <None Remove="Resources\sound_file.png" />
+    <None Remove="Resources\star.png" />
+    <None Remove="Resources\star2.png" />
+    <None Remove="Resources\sticky_note.png" />
+    <None Remove="Resources\stock.png" />
+    <None Remove="Resources\system_window.png" />
+    <None Remove="Resources\tablet.png" />
+    <None Remove="Resources\tachometer.png" />
+    <None Remove="Resources\tag.png" />
+    <None Remove="Resources\terminal.png" />
+    <None Remove="Resources\terminal2.png" />
+    <None Remove="Resources\text.png" />
+    <None Remove="Resources\trashcan.png" />
+    <None Remove="Resources\turntable.png" />
+    <None Remove="Resources\unlock.png" />
+    <None Remove="Resources\unlock2.png" />
+    <None Remove="Resources\user.png" />
+    <None Remove="Resources\user2.png" />
+    <None Remove="Resources\user_group.png" />
+    <None Remove="Resources\video_folder.png" />
+    <None Remove="Resources\warning_shield.png" />
+    <None Remove="Resources\webcam.png" />
+    <None Remove="Resources\window.png" />
+    <None Remove="Resources\window2.png" />
+    <None Remove="Resources\word.png" />
+    <None Remove="Resources\word_file.png" />
+    <None Remove="Resources\wrench.png" />
+    <None Remove="Resources\wrench2.png" />
+    <None Remove="Resources\youtube.png" />
+    <None Remove="Resources\zip_file.png" />
+    <None Remove="Resources\zip_file2.png" />
+    <None Remove="Views\belt.png" />
+    <None Remove="Views\gear.png" />
+    <None Remove="Views\sensor.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="stock.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\belt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\gear.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\sensor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\belt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\gear.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\sensor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="5.1.0" />
+    <PackageReference Include="MQTTnet" Version="5.0.1.1416" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>
