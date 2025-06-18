@@ -82,6 +82,7 @@ ERD
 3. View, ViewModel 구성
 4. WPF 애니메이션 기능으로 컨테이어벨트구현
 
+    https://github.com/user-attachments/assets/5ae3a0c6-fb89-476c-8408-ae0b6861cdb8
 
 ##### MQTT Subscriber
 - WPF 과목에서 사용했던 MQTT Subscriber 그대로 사용
