@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfIoTSimulatorApp", "WpfIoTSimulatorApp\WpfIoTSimulatorApp.csproj", "{B644C2C2-148F-469D-908E-FF5384478E16}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMqttSubApp", "..\WpfMqttSubApp\WpfMqttSubApp.csproj", "{9BC3D6C4-BCAC-C949-51F1-51A936DBEB4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMrpSimulatorApp", "WpfMrpSimulatorApp\WpfMrpSimulatorApp.csproj", "{8D1D15E3-A30F-4B81-9EA0-3B96704C5FC7}"
 EndProject
@@ -19,10 +17,6 @@ Global
 		{B644C2C2-148F-469D-908E-FF5384478E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B644C2C2-148F-469D-908E-FF5384478E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B644C2C2-148F-469D-908E-FF5384478E16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9BC3D6C4-BCAC-C949-51F1-51A936DBEB4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BC3D6C4-BCAC-C949-51F1-51A936DBEB4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BC3D6C4-BCAC-C949-51F1-51A936DBEB4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BC3D6C4-BCAC-C949-51F1-51A936DBEB4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8D1D15E3-A30F-4B81-9EA0-3B96704C5FC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8D1D15E3-A30F-4B81-9EA0-3B96704C5FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D1D15E3-A30F-4B81-9EA0-3B96704C5FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
