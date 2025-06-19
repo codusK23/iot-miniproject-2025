@@ -1,5 +1,4 @@
 ﻿using MahApps.Metro.Controls;
-using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -15,24 +14,18 @@ namespace WpfIoTSimulatorApp.Views
         {
             InitializeComponent();
         }
-        //Timer timer = new Timer();
-        Stopwatch sw = new Stopwatch();
 
-        private void BtnTest_Click(object sender, System.Windows.RoutedEventArgs e)
+        // 뷰상에 있는 이벤트핸들러를 전부 제거
+        // WPF상의 객체 애니메이션 추가. 애니메이션은 디자이너 역할(View)
+        public void StartHmiAni()
         {
-            StartHmiAni(); // Hmi 애니메이션 동작
-        }
-
-        // WPF 상의 객체 애니메이션 추가
-        private void StartHmiAni()
-        {
-            Product.Fill = new SolidColorBrush(Colors.Gray);    // 제품을 회색으로 칠하기
-
             // 기어애니메이션
-            DoubleAnimation ga = new DoubleAnimation();
-            ga.From = 0;
-            ga.To = 360;
-            ga.Duration = TimeSpan.FromSeconds(5);  // 계획 로드타임(Schedules의 LoadTime 값이 들어가야 함)
+            DoubleAnimation ga = new DoubleAnimation
+            {
+                From = 0,
+                To = 360, // 360도 회전
+                Duration = TimeSpan.FromSeconds(2),  // 계획 로드타임(Schedules의 LoadTime 값이 들어가야 함)    
+            };
 
             RotateTransform rt = new RotateTransform();
             GearStart.RenderTransform = rt;
@@ -42,13 +35,34 @@ namespace WpfIoTSimulatorApp.Views
 
             rt.BeginAnimation(RotateTransform.AngleProperty, ga);
 
-            // 제품 애니메이션
-            DoubleAnimation pa = new DoubleAnimation();
-            pa.From = 127;
-            pa.To = 422;    // x축: 센서 아래 위치
-            pa.Duration = TimeSpan.FromSeconds(5);  // 계획 로드타임(Schedules의 LoadTime 값이 들어가야 함)
+            // 제품애니메이션
+            DoubleAnimation pa = new DoubleAnimation
+            {
+                From = 127,
+                To = 417,  // x축: 센서아래 위치
+                Duration = TimeSpan.FromSeconds(2), // 계획 로드타임(Schedules의 LoadTime 값이 들어가야 함)
+            }; // 이런 초기화가 좀더 최신 코딩방식.
+
+            // 아래는 구식 코딩방식
+            //pa.From = 127;
+            //pa.To = 417; 
+            //pa.Duration = TimeSpan.FromSeconds(2); 
 
             Product.BeginAnimation(Canvas.LeftProperty, pa);
+        }
+
+        public void StartSensorCheck()
+        {            
+            // 센서 애니메이션
+            DoubleAnimation sa = new DoubleAnimation
+            {
+                From = 1,
+                To = 0,
+                Duration = TimeSpan.FromSeconds(1),
+                AutoReverse = true                   
+            };
+
+            SortingSensor.BeginAnimation(OpacityProperty, sa);
         }
     }
 }

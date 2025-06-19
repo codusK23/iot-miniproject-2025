@@ -15,8 +15,7 @@
     Dialog:DialogParticipation.Register="{Binding}">
     <mah:MetroWindow.IconTemplate>
         <DataTemplate>
-            <iconPacks:PackIconSimpleIcons Kind="EclipseMosquitto" Foreground="White"
-                                           Margin="5,7,0,0" Width="24" />
+            <iconPacks:PackIconSimpleIcons Kind="EclipseMosquitto" Foreground="White" Margin="5,7,0,0" Width="24" />
         </DataTemplate>
     </mah:MetroWindow.IconTemplate>
     <Grid>
@@ -24,7 +23,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
         <!-- UI컨트롤 구성 -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="MQTT Broker Host" VerticalAlignment="Center" />
@@ -35,7 +33,6 @@
                     Command="{Binding ConnectBrokerCommand}">
                 <TextBlock Text="CONNECT" Margin="5,0" />
             </Button>
-                    
             <Label Content="Database Host" VerticalAlignment="Center" />
             <TextBox Margin="3" mah:TextBoxHelper.Watermark="DB주소 입력"
                      Width="100" Text="{Binding DatabaseHost}"/>
@@ -45,7 +42,6 @@
                 <TextBlock Text="CONNECT" Margin="5,0" />
             </Button>
         </StackPanel>
-
         <RichTextBox x:Name="LogBox" Grid.Row="1" Margin="5" VerticalScrollBarVisibility="Visible"
                      IsReadOnly="True"
                      helper:RichTextBoxHelper.BindableDocument="{Binding LogText, UpdateSourceTrigger=PropertyChanged}">
