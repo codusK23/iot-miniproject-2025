@@ -62,6 +62,9 @@ namespace WpfMrpSimulatorApp.ViewModels
 
         #endregion
 
-        public SettingViewModel() { }
+        public SettingViewModel()
+        {
+        
+        }
     }
 }

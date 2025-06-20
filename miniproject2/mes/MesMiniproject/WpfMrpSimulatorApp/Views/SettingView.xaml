@@ -42,23 +42,25 @@
                 <TextBox Grid.Row="0" Margin="2" CharacterCasing="Upper"
                                mah:TextBoxHelper.AutoWatermark="True"
                                mah:TextBoxHelper.Watermark="기본코드(8자)"
-                               Text="{Binding BasicCode}" IsReadOnly="{Binding}"/>
+                               Text="{Binding BasicCode}" IsReadOnly="{Binding}" />
                 <TextBox Grid.Row="1" Margin="2" 
                                mah:TextBoxHelper.AutoWatermark="True"
                                mah:TextBoxHelper.Watermark="코드명"
-                               Text="{Binding CodeName}" IsReadOnly="{Binding}"/>
-                <TextBox Grid.Row="2" Margin="2" 
+                               Text="{Binding CodeName}" />
+                <TextBox Grid.Row="2" Grid.RowSpan="2" Margin="2" 
                                mah:TextBoxHelper.AutoWatermark="True"
                                mah:TextBoxHelper.Watermark="코드설명"
-                               Text="{Binding BasicCode}" IsReadOnly="{Binding}"/>
+                               Text="{Binding CodeDesc}" />
                 <DatePicker Grid.Row="4" Margin="2" IsEnabled="False" 
                                mah:TextBoxHelper.AutoWatermark="True"
-                               mah:TextBoxHelper.Watermark="작성일" />
+                               mah:TextBoxHelper.Watermark="작성일"
+                            Text="{Binding RegDt}" />
                 <DatePicker Grid.Row="5" Margin="2" IsEnabled="False" 
                                mah:TextBoxHelper.AutoWatermark="True"
-                               mah:TextBoxHelper.Watermark="수정일" />
+                               mah:TextBoxHelper.Watermark="수정일"
+                            Text="{Binding ModDt}" />
                 <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="신규" Margin="0, 0, 3, 0">
+                    <Button Content="신규" Margin="0, 0, 3, 0" Command="{Binding NewCommand}">
                         <Button.ContentTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -68,7 +70,7 @@
                             </DataTemplate>
                         </Button.ContentTemplate>
                     </Button>
-                    <Button Content="저장" Margin="0, 0, 3, 0">
+                    <Button Content="저장" Margin="0, 0, 3, 0" Command="{Binding SaveCommand}">
                         <Button.ContentTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -78,7 +80,7 @@
                             </DataTemplate>
                         </Button.ContentTemplate>
                     </Button>
-                    <Button Content="삭제">
+                    <Button Content="삭제" Command="{Binding RemoveCommand}">
                         <Button.ContentTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
