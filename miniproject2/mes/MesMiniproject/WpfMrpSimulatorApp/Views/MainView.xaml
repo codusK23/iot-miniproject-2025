@@ -41,7 +41,7 @@
                     </Button.ContentTemplate>
                 </Button>
 
-                <Button Content="공정계획" FontSize="12" Background="DodgerBlue" Margin="5">
+                <Button Content="공정계획" FontSize="12" Background="DodgerBlue" Margin="5" Command="{Binding SetScheduleCommand}">
                     <Button.ContentTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -80,13 +80,12 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Label Content="{Binding}" Foreground="White" VerticalAlignment="Center" />
-                            <iconPacks:PackIconVaadinIcons Kind="PowerOff" Foreground="AntiqueWhite" />
+                            <iconPacks:PackIconEvaIcons Kind="PowerOutline" Foreground="AntiqueWhite" />
                         </StackPanel>
                     </DataTemplate>
                 </Button.ContentTemplate>
             </Button>
         </Grid>
-        
         <!-- UI 구성 중 메인컨텐츠 영역 -->
         <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
         
