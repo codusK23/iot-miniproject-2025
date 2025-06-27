@@ -2,14 +2,24 @@
 using CommunityToolkit.Mvvm.Input;
 using MQTTnet;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using WpfIoTSimulatorApp.Models;
+using System.Windows;
 
 namespace WpfIoTSimulatorApp.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+        #region MQTT 재접속용 변수
+
+        private Timer _mqttMonitorTimer; 
+        private bool _isReconnecting = false; 
+
+        #endregion
+
         #region 뷰와 연계되는 멤버변수/속성과 바인딩 
 
         private string _greeting;
@@ -23,7 +33,8 @@ namespace WpfIoTSimulatorApp.ViewModels
 
         private IMqttClient mqttClient;
         private string brokerHost;
-        private string mqttTopic;
+        private string mqttPubTopic;
+        private string mqttSubTopic;
         private string clientId;
 
         private int logNum;  // 로그메시지 순번
@@ -40,11 +51,16 @@ namespace WpfIoTSimulatorApp.ViewModels
             // MQTT용 초기화
             brokerHost = "210.119.12.72";   // 본인 PC 아이피
             clientId = "IOT01";                  // IoT장비번호
-            mqttTopic = "pknu/sf72/data";  // 스마트팩토리 토픽
+            mqttPubTopic = "pknu/sf72/data"; // 스마트팩토리 토픽
+            mqttSubTopic = "pknu/sf72/control"; // 모니터리에서 넘어오는 토픽
+
             logNum = 1;                         // 로그번호를 1부터 시작
            
             // MQTT 클라이언트 생성 및 초기화
             InitMqttClient();
+
+            // MQTT 재접속확인용 타이머 실행
+            StartMqttMonitor();
         }
 
         #endregion
@@ -74,6 +90,41 @@ namespace WpfIoTSimulatorApp.ViewModels
 
         #region 일반메서드
 
+        private void StartMqttMonitor()
+        {
+            _mqttMonitorTimer = new Timer(async _ =>
+            {
+                await CheckMqttConnectionAsync();
+            }, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(10));  // 10초마다 연결 여부 확인 후 재접속
+        }
+
+        // 핵심. MQTTClient가 접속이 끊어지면 재접속
+        private async Task CheckMqttConnectionAsync()
+        {
+            if (!mqttClient.IsConnected)
+            {
+                _isReconnecting = true;
+                LogText = "MQTT 접속 끊김. 재접속 시도 중...";
+
+                try
+                {
+                    // MQTT 클라이언트 접속 설정
+                    var options = new MqttClientOptionsBuilder()
+                                        .WithTcpServer(brokerHost, 1883)   // 포트가 기존과 다르면 포트번호도 입력 필요
+                                        .WithClientId(clientId)
+                                        .WithCleanSession(true)
+                                        .Build();
+                    
+                    await mqttClient.ConnectAsync(options);
+                    LogText = "MQTT 재접속 성공!";
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"MQTT 재접속 실패: {ex.Message}");
+                }
+            }
+        }
+
         private async Task InitMqttClient()
         {
             var mqttFactory = new MqttClientFactory();
@@ -96,7 +147,7 @@ namespace WpfIoTSimulatorApp.ViewModels
 
             // 테스트 메시지 
             var message = new MqttApplicationMessageBuilder()
-                                .WithTopic(mqttTopic)
+                                .WithTopic(mqttPubTopic)
                                 .WithPayload("Hello From IoT Simulator!")
                                 .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce)
                                 .Build();
@@ -104,7 +155,28 @@ namespace WpfIoTSimulatorApp.ViewModels
             // MQTT 브로커로 전송!
             await mqttClient.PublishAsync(message);
             LogText = "MQTT 브로커에 초기메시지 전송!";
+
+            await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic(mqttSubTopic).Build());
+            mqttClient.ApplicationMessageReceivedAsync += MqttMessageReceivedAsync;
         }
+
+        private Task MqttMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+        {
+            var payload = Encoding.UTF8.GetString(arg.ApplicationMessage.Payload);
+
+            // PrcMsg 클래스로 Deserialization 처리
+            var data = JsonConvert.DeserializeObject<PrcMsg>(payload);
+
+            //LogText = data.Flag;
+            if (data.Flag.ToUpper() == "ON")
+            {
+                Move();  // 컨베이어벨트 애니메이션 시작
+                Thread.Sleep(2200);
+                Check();
+            }
+            return Task.CompletedTask;
+        }
+
 
         #endregion
 
@@ -121,13 +193,20 @@ namespace WpfIoTSimulatorApp.ViewModels
         public void Move()
         {
             ProductBrush = Brushes.Gray;
-            StartHmiRequested?.Invoke();  // 컨베이어벨트 애니메이션 요청(View에서 처리)
+            Application.Current.Dispatcher.Invoke(() => // UI 스레드와 VM스레드간 분리
+            {
+                StartHmiRequested?.Invoke();  // 컨베이어벨트 애니메이션 요청(View에서 처리)
+            });
+            
         }
 
         [RelayCommand]
         public void Check()
         {
-            StartSensorCheckRequested?.Invoke();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                StartSensorCheckRequested?.Invoke();
+            });
             
             // 양품불량품 판단
             Random rand = new();
@@ -153,25 +232,32 @@ namespace WpfIoTSimulatorApp.ViewModels
                 _ => Brushes.Aqua,      // default 혹시나
             };
 
-            // MQTT로 데이터 전송
-            var resultText = result == 1 ? "OK" : "FAIL";
-            var payload = new CheckResult
+            try
             {
-                ClientId = clientId,
-                Timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                Result = resultText,
-            };
-            // 일반 객체 데이터를 json으로 변경 -> 직렬화(Serialization).
-            var jsonPayload = JsonConvert.SerializeObject(payload, Formatting.Indented);
-            var message = new MqttApplicationMessageBuilder()
-                                .WithTopic(mqttTopic)
-                                .WithPayload(jsonPayload)
-                                .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce)
-                                .Build();
+                // MQTT로 데이터 전송
+                var resultText = result == 1 ? "OK" : "FAIL";
+                var payload = new CheckResult
+                {
+                    ClientId = clientId,
+                    Timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    Result = resultText,
+                };
+                // 일반 객체 데이터를 json으로 변경 -> 직렬화(Serialization).
+                var jsonPayload = JsonConvert.SerializeObject(payload, Formatting.Indented);
+                var message = new MqttApplicationMessageBuilder()
+                                    .WithTopic(mqttPubTopic)
+                                    .WithPayload(jsonPayload)
+                                    .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce)
+                                    .Build();
 
-            // MQTT 브로커로 전송!
-            mqttClient.PublishAsync(message);
-            LogText = $"MQTT 브로커에 결과메시지 전송 : {logNum++}";
+                // MQTT 브로커로 전송!
+                mqttClient.PublishAsync(message);
+                LogText = $"MQTT 브로커에 결과메시지 전송 : {logNum++}";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         #endregion

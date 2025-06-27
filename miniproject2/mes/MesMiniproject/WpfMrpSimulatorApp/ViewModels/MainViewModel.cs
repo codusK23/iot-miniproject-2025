@@ -82,6 +82,9 @@ namespace WpfMrpSimulatorApp.ViewModels
             {
                 DataContext = viewModel,
             };
+            viewModel.StartHmiRequested += view.StartHmiAni;  // 애니메이션 동작 연결
+            viewModel.StartSensorCheckRequested += view.StartSensorCheck;  // 애니메이션 동작 연결
+
             CurrentView = view;
         }
     }
